@@ -85,7 +85,6 @@
             this.btnPalanca.Name = "btnPalanca";
             this.btnPalanca.Size = new System.Drawing.Size(82, 319);
             this.btnPalanca.TabIndex = 5;
-            this.btnPalanca.Text = "button1";
             this.btnPalanca.UseVisualStyleBackColor = false;
             this.btnPalanca.Click += new System.EventHandler(this.btnPalanca_Click);
             // 

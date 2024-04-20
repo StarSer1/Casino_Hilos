@@ -16,7 +16,6 @@ namespace Casino_Hilos
         private Panel[] paneles;
         private PictureBox[][,] cuadrosImagen;
         private Random aleatorio;
-        private int duracionAnimacion = 4000; // Duración de la animación en milisegundos (10 segundos)
         private int anchoPictureBox = 100;
         private int altoPictureBox = 100;
         private int espaciado = 20; // Espacio entre PictureBox
@@ -32,8 +31,11 @@ namespace Casino_Hilos
         public Form1()
         {
             InitializeComponent();
+            aleatorio = new Random(); // Inicializar la variable aleatorio
+            hilos = new Thread[numPaneles]; // Inicializar la variable hilos
             InicializarPaneles();
             InicializarCuadrosImagen();
+            InicializarImagenes(); // Llama al método para inicializar las imágenes en los paneles
             this.FormClosing += Form1_FormClosing; // Suscribirse al evento FormClosing
         }
 
@@ -76,9 +78,37 @@ namespace Casino_Hilos
             }
         }
 
+        private void InicializarImagenes()
+        {
+            // Inicializa las imágenes con una imagen aleatoria en cada panel
+            for (int k = 0; k < numPaneles; k++)
+            {
+                for (int i = 0; i < numColumnas; i++)
+                {
+                    for (int j = 0; j < numFilas; j++)
+                    {
+                        cuadrosImagen[k][i, j].Image = ObtenerImagenAleatoria();
+                    }
+                }
+            }
+        }
+
+        private void AjustarTamañoImagenes()
+        {
+            for (int k = 0; k < numPaneles; k++)
+            {
+                for (int i = 0; i < numColumnas; i++)
+                {
+                    for (int j = 0; j < numFilas; j++)
+                    {
+                        cuadrosImagen[k][i, j].Size = new Size(anchoPictureBox, altoPictureBox);
+                    }
+                }
+            }
+        }
+
         private void IniciarHilos()
         {
-            hilos = new Thread[numPaneles];
             for (int k = 0; k < numPaneles; k++)
             {
                 int index = k;
@@ -89,7 +119,6 @@ namespace Casino_Hilos
                 });
                 hilos[k].Start();
             }
-            aleatorio = new Random();
         }
 
         private void AnimarColumna(int panelIndex)
@@ -179,6 +208,11 @@ namespace Casino_Hilos
                 animacionIniciada = true; // Indicar que la animación ha comenzado
                 tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
                 IniciarHilos(); // Iniciar la animación
+            }
+            else
+            {
+                detenerAnimacion = true; // Detener la animación
+                AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
             }
         }
     }
