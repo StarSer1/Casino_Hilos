@@ -15,6 +15,8 @@ namespace Casino_Hilos
     {
         private Panel[] paneles;
         private PictureBox[][,] cuadrosImagen;
+        private Thread[] hilos;
+        private ManualResetEvent[] handleCreatedEvents;
         private Random aleatorio;
         private int anchoPictureBox = 100;
         private int altoPictureBox = 100;
@@ -22,11 +24,15 @@ namespace Casino_Hilos
         private int numFilas = 3; // Número de filas
         private int numColumnas = 1; // Número de columnas
         private int numPaneles = 5; // Número de paneles
-        private Thread[] hilos;
-        private ManualResetEvent[] handleCreatedEvents;
+        private int tiempoInactivo = 5000;       
         private bool detenerAnimacion = true; // Bandera para detener la animación
         private bool animacionIniciada = false; // Bandera para verificar si la animación ya ha comenzado
+        private bool botonDisponible = true;
         private DateTime tiempoInicio; // Hora de inicio de la animación
+        private DateTime ultimoClick = DateTime.MinValue;
+
+        
+
 
         public Form1()
         {
@@ -199,28 +205,83 @@ namespace Casino_Hilos
             // Detener todos los hilos cuando el formulario se esté cerrando
             foreach (var hilo in hilos)
             {
-                hilo.Abort();
+                if (hilo != null)
+                {
+                    hilo.Abort();
+                }
             }
         }
 
         private void btnPalanca_Click(object sender, EventArgs e)
         {
-            if (detenerAnimacion)
+            if (botonDisponible)
             {
-                detenerAnimacion = false; // Reiniciar la bandera para detener la animación
-                animacionIniciada = true; // Indicar que la animación ha comenzado
-                tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
-                IniciarHilos(); // Iniciar la animación
-            }
-            else
-            {
-                detenerAnimacion = true; // Detener la animación
-                foreach (var hilo in hilos)
+                if (detenerAnimacion)
                 {
-                    hilo.Join(); // Esperar a que todos los hilos terminen
+                    detenerAnimacion = false; // Reiniciar la bandera para detener la animación
+                    animacionIniciada = true; // Indicar que la animación ha comenzado
+                    tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
+                    IniciarHilos(); // Iniciar la animación
                 }
-                AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
+                else
+                {
+                    detenerAnimacion = true; // Detener la animación
+                    foreach (var hilo in hilos)
+                    {
+                        hilo.Join(); // Esperar a que todos los hilos terminen
+                    }
+                    AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
+                }
+
+                botonDisponible = false;
+
+                // Obtener la hora actual
+                ultimoClick = DateTime.Now;
+
+                // Reactivar el botón después de cierto tiempo
+                Task.Delay(tiempoInactivo).ContinueWith(_ =>
+                {
+                    // Verificar si ha pasado suficiente tiempo desde el último clic
+                    if ((DateTime.Now - ultimoClick).TotalMilliseconds >= tiempoInactivo)
+                    {
+                        // Reactivar el botón en el hilo de la interfaz de usuario
+                        Invoke((Action)(() => botonDisponible = true));
+                    }
+                });
+            }   
+        }
+
+        private void DetenerHilo(int N)
+        {
+            if (hilos.Length >= N && hilos[N-1] != null && hilos[N-1].IsAlive)
+            {
+                hilos[N-1].Abort();
             }
+        }
+        private void BtnPararHilo1_Click(object sender, EventArgs e)
+        {
+            DetenerHilo(1);
+        }
+
+        private void BtnPararHilo2_Click(object sender, EventArgs e)
+        {
+            DetenerHilo(2);
+        }
+
+        private void BtnPararHilo3_Click(object sender, EventArgs e)
+        {
+            DetenerHilo(3);
+        }
+
+        private void BtnPararHilo4_Click(object sender, EventArgs e)
+        {
+            DetenerHilo(4);
+        }
+
+        private void BtnPararHilo5_Click(object sender, EventArgs e)
+        {
+            DetenerHilo(5);
         }
     }
 }
+
