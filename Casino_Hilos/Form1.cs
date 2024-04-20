@@ -128,10 +128,10 @@ namespace Casino_Hilos
                 if (animacionIniciada)
                 {
                     TimeSpan tiempoTranscurrido = DateTime.Now - tiempoInicio;
-                    if (tiempoTranscurrido.TotalMilliseconds >= 5000)
+                    if (tiempoTranscurrido.TotalMilliseconds >= 4200)
                     {
                         detenerAnimacion = true;
-                        return;
+                        break;
                     }
                 }
 
@@ -157,6 +157,9 @@ namespace Casino_Hilos
                 }
                 Thread.Sleep(50); // Espera 50 milisegundos antes de la siguiente iteración
             }
+
+            // Al finalizar la animación, ajustar el tamaño de las imágenes
+            AjustarTamañoImagenes();
         }
 
         private Image ObtenerImagenAleatoria()
@@ -182,7 +185,7 @@ namespace Casino_Hilos
                     imagen = Properties.Resources.Cereza;
                     break;
                 case 6:
-                    imagen = Properties.Resources.Lima_V2;
+                    imagen = Properties.Resources.Lima;
                     break;
                 default:
                     break;
@@ -212,6 +215,10 @@ namespace Casino_Hilos
             else
             {
                 detenerAnimacion = true; // Detener la animación
+                foreach (var hilo in hilos)
+                {
+                    hilo.Join(); // Esperar a que todos los hilos terminen
+                }
                 AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
             }
         }

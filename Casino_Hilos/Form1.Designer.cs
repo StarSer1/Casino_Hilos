@@ -57,7 +57,7 @@
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Location = new System.Drawing.Point(446, 392);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(117, 331);
+            this.panel3.Size = new System.Drawing.Size(117, 341);
             this.panel3.TabIndex = 2;
             // 
             // panel4
@@ -65,7 +65,7 @@
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Location = new System.Drawing.Point(604, 392);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(116, 330);
+            this.panel4.Size = new System.Drawing.Size(116, 341);
             this.panel4.TabIndex = 3;
             // 
             // panel5
@@ -73,7 +73,7 @@
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.Location = new System.Drawing.Point(760, 392);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(114, 330);
+            this.panel5.Size = new System.Drawing.Size(114, 341);
             this.panel5.TabIndex = 4;
             // 
             // btnPalanca

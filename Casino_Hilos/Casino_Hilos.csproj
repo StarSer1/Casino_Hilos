@@ -96,10 +96,10 @@
     <None Include="Resources\Cereza.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Lima V2.png" />
+    <None Include="Resources\CasinoImg.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CasinoImg.png" />
+    <None Include="Resources\Lima.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
