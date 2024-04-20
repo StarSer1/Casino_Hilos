@@ -25,13 +25,15 @@ namespace Casino_Hilos
         private int numPaneles = 5; // Número de paneles
         private Thread[] hilos;
         private ManualResetEvent[] handleCreatedEvents;
+        private bool detenerAnimacion = true; // Bandera para detener la animación
+        private bool animacionIniciada = false; // Bandera para verificar si la animación ya ha comenzado
+        private DateTime tiempoInicio; // Hora de inicio de la animación
 
         public Form1()
         {
             InitializeComponent();
             InicializarPaneles();
             InicializarCuadrosImagen();
-            IniciarHilos();
             this.FormClosing += Form1_FormClosing; // Suscribirse al evento FormClosing
         }
 
@@ -92,8 +94,18 @@ namespace Casino_Hilos
 
         private void AnimarColumna(int panelIndex)
         {
-            while (true)
+            while (true && !detenerAnimacion) // Verifica si se debe detener la animación
             {
+                if (animacionIniciada)
+                {
+                    TimeSpan tiempoTranscurrido = DateTime.Now - tiempoInicio;
+                    if (tiempoTranscurrido.TotalMilliseconds >= 5000)
+                    {
+                        detenerAnimacion = true;
+                        return;
+                    }
+                }
+
                 for (int i = 0; i < numFilas; i++)
                 {
                     if (!IsHandleCreated)
@@ -159,9 +171,15 @@ namespace Casino_Hilos
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnPalanca_Click(object sender, EventArgs e)
         {
-            // No es necesario iniciar las imágenes aquí, ya que serán actualizadas por los hilos
+            if (detenerAnimacion)
+            {
+                detenerAnimacion = false; // Reiniciar la bandera para detener la animación
+                animacionIniciada = true; // Indicar que la animación ha comenzado
+                tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
+                IniciarHilos(); // Iniciar la animación
+            }
         }
     }
 }

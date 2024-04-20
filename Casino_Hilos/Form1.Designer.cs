@@ -33,6 +33,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnPalanca = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,12 +76,26 @@
             this.panel5.Size = new System.Drawing.Size(114, 330);
             this.panel5.TabIndex = 4;
             // 
+            // btnPalanca
+            // 
+            this.btnPalanca.BackColor = System.Drawing.Color.Transparent;
+            this.btnPalanca.FlatAppearance.BorderSize = 0;
+            this.btnPalanca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPalanca.Location = new System.Drawing.Point(927, 469);
+            this.btnPalanca.Name = "btnPalanca";
+            this.btnPalanca.Size = new System.Drawing.Size(82, 319);
+            this.btnPalanca.TabIndex = 5;
+            this.btnPalanca.Text = "button1";
+            this.btnPalanca.UseVisualStyleBackColor = false;
+            this.btnPalanca.Click += new System.EventHandler(this.btnPalanca_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Casino_Hilos.Properties.Resources.CasinoImg;
             this.ClientSize = new System.Drawing.Size(1021, 992);
+            this.Controls.Add(this.btnPalanca);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -89,7 +104,6 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Slot Machine";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -102,6 +116,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnPalanca;
     }
 }
 
