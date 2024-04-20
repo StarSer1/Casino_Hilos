@@ -37,44 +37,50 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(256, 115);
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(139, 392);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(120, 395);
+            this.panel1.Size = new System.Drawing.Size(108, 341);
             this.panel1.TabIndex = 0;
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(382, 115);
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Location = new System.Drawing.Point(295, 392);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(120, 395);
+            this.panel2.Size = new System.Drawing.Size(110, 341);
             this.panel2.TabIndex = 1;
             // 
             // panel3
             // 
-            this.panel3.Location = new System.Drawing.Point(508, 115);
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Location = new System.Drawing.Point(446, 392);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(134, 395);
+            this.panel3.Size = new System.Drawing.Size(117, 331);
             this.panel3.TabIndex = 2;
             // 
             // panel4
             // 
-            this.panel4.Location = new System.Drawing.Point(648, 115);
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Location = new System.Drawing.Point(604, 392);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(128, 395);
+            this.panel4.Size = new System.Drawing.Size(116, 330);
             this.panel4.TabIndex = 3;
             // 
             // panel5
             // 
-            this.panel5.Location = new System.Drawing.Point(782, 115);
+            this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.Location = new System.Drawing.Point(760, 392);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(127, 395);
+            this.panel5.Size = new System.Drawing.Size(114, 330);
             this.panel5.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1085, 694);
+            this.BackgroundImage = global::Casino_Hilos.Properties.Resources.CasinoImg;
+            this.ClientSize = new System.Drawing.Size(1021, 992);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);

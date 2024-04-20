@@ -63,6 +63,16 @@ namespace Casino_Hilos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CasinoImg {
+            get {
+                object obj = ResourceManager.GetObject("CasinoImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cereza {
             get {
                 object obj = ResourceManager.GetObject("Cereza", resourceCulture);
