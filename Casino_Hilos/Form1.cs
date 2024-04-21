@@ -24,14 +24,18 @@ namespace Casino_Hilos
         private int numFilas = 3; // Número de filas
         private int numColumnas = 1; // Número de columnas
         private int numPaneles = 5; // Número de paneles
-        private int tiempoInactivo = 5000;       
+        private int tiempoInactivo = 5000;
+        private int Apuesta = 1;
+        private int SaldoDeCuenta = 10000;
         private bool detenerAnimacion = true; // Bandera para detener la animación
         private bool animacionIniciada = false; // Bandera para verificar si la animación ya ha comenzado
         private bool botonDisponible = true;
+        private bool ApuestaValida = false;
         private DateTime tiempoInicio; // Hora de inicio de la animación
         private DateTime ultimoClick = DateTime.MinValue;
 
-        
+        private int[] data; //LLENAR ESTE ARREGLO CON LOS VALORES DE LAS IMAGENES (DEL 1 AL 6)
+
 
 
         public Form1()
@@ -200,6 +204,58 @@ namespace Casino_Hilos
             return imagen;
         }
 
+        private int Calcular_Premio(int[] valores,int Apuesta)
+        {
+            int Total = 0;
+            int Opcion = 1;
+            bool Aprovado = false;
+            bool Finalizado = true;
+            for (int h = 0; h < 6; h++)
+            {
+                for (int i = 0; i < valores.Length; i++)
+                {
+                    if (valores[i] != Opcion)
+                    {
+                        Aprovado = false;
+                        break;
+                    }
+                    Aprovado = true;
+                }
+                
+                if (Aprovado)
+                {
+                    Total = (Opcion * 2000) * Apuesta;
+                    break;
+                }
+                Opcion++;
+                Finalizado = Aprovado;
+            }
+            if (Aprovado == false)
+            {
+                Opcion = 1;
+                for (int h = 0; h < 6; h++)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (valores[i] == valores[i + 1] && valores[i] == valores[i + 2])
+                        {
+                            Aprovado = true;
+                            break;
+                        }
+                        Aprovado = false;
+                    }
+                    Opcion++;
+                    if (Aprovado)
+                    {
+                        Total = (Opcion * 1000) * Apuesta;
+                        break;
+                    }
+                    
+                }
+            }
+            
+            return Total;
+        }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Detener todos los hilos cuando el formulario se esté cerrando
@@ -211,44 +267,75 @@ namespace Casino_Hilos
                 }
             }
         }
-
+        #region Botones
         private void btnPalanca_Click(object sender, EventArgs e)
         {
+            // Deshabilitar el botón mientras se ejecuta la animación
+            btnPalanca.Enabled = false;
+
+            int Apostado = int.Parse(label1.Text);
+            int Saldo = int.Parse(label2.Text);
+            int DineroInicial = SaldoDeCuenta;
+            SaldoDeCuenta = (Saldo - Apostado);
+            if (SaldoDeCuenta > 0)
+            {
+                ApuestaValida = true;
+            }
             if (botonDisponible)
             {
-                if (detenerAnimacion)
+                if (ApuestaValida)
                 {
-                    detenerAnimacion = false; // Reiniciar la bandera para detener la animación
-                    animacionIniciada = true; // Indicar que la animación ha comenzado
-                    tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
-                    IniciarHilos(); // Iniciar la animación
+                    if (detenerAnimacion)
+                    {
+                        detenerAnimacion = false; // Reiniciar la bandera para detener la animación
+                        animacionIniciada = true; // Indicar que la animación ha comenzado
+                        tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
+                        IniciarHilos(); // Iniciar la animación
+                    }
+                    else
+                    {
+                        detenerAnimacion = true; // Detener la animación
+                        foreach (var hilo in hilos)
+                        {
+                            hilo.Join(); // Esperar a que todos los hilos terminen
+                        }
+                        AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
+                    }
+
+                    botonDisponible = false;
+
+                    // Obtener la hora actual
+                    ultimoClick = DateTime.Now;
+
+                    // Reactivar el botón después de cierto tiempo
+                    Task.Delay(tiempoInactivo).ContinueWith(_ =>
+                    {
+                        // Verificar si ha pasado suficiente tiempo desde el último clic
+                        if ((DateTime.Now - ultimoClick).TotalMilliseconds >= tiempoInactivo)
+                        {
+                            // Reactivar el botón en el hilo de la interfaz de usuario
+                            Invoke((Action)(() =>
+                            {
+                                botonDisponible = true;
+                                // Habilitar el botón una vez que la animación haya terminado
+                                btnPalanca.Enabled = true;
+                            }));
+                        }
+                    });
                 }
                 else
                 {
-                    detenerAnimacion = true; // Detener la animación
-                    foreach (var hilo in hilos)
-                    {
-                        hilo.Join(); // Esperar a que todos los hilos terminen
-                    }
-                    AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
+                    MessageBox.Show("Su cuenta no tiene el saldo necesario");
+                    SaldoDeCuenta = DineroInicial;
                 }
+            }
 
-                botonDisponible = false;
-
-                // Obtener la hora actual
-                ultimoClick = DateTime.Now;
-
-                // Reactivar el botón después de cierto tiempo
-                Task.Delay(tiempoInactivo).ContinueWith(_ =>
-                {
-                    // Verificar si ha pasado suficiente tiempo desde el último clic
-                    if ((DateTime.Now - ultimoClick).TotalMilliseconds >= tiempoInactivo)
-                    {
-                        // Reactivar el botón en el hilo de la interfaz de usuario
-                        Invoke((Action)(() => botonDisponible = true));
-                    }
-                });
-            }   
+            int[] datas = { 2, 2, 2, 2, 2 }; //Arreglo de prueba
+            int Dinero = Calcular_Premio(datas, Apuesta);
+            SaldoDeCuenta = SaldoDeCuenta + Dinero;
+            label2.Text = SaldoDeCuenta.ToString();
+            label3.Text = Dinero.ToString();
+            ApuestaValida = false;
         }
 
         private void DetenerHilo(int N)
@@ -282,6 +369,50 @@ namespace Casino_Hilos
         {
             DetenerHilo(5);
         }
+
+        private void BtnInsertar_Click(object sender, EventArgs e)
+        {
+            if(SaldoDeCuenta >= 0)
+            {
+
+            }
+                
+            else
+            {
+                MessageBox.Show("La apuesta excede el saldo de su cuenta");
+            }
+        }
+
+        private void BtnApuesta1000_Click(object sender, EventArgs e)
+        {
+            Apuesta = 1;
+            label1.Text = "1000";
+        }
+
+        private void BtnApuesta2000_Click(object sender, EventArgs e)
+        {
+            Apuesta = 2;
+            label1.Text = "2000";
+        }
+
+        private void BtnApuesta3000_Click(object sender, EventArgs e)
+        {
+            Apuesta = 3;
+            label1.Text = "3000";
+        }
+
+        private void BtnApuesta4000_Click(object sender, EventArgs e)
+        {
+            Apuesta = 4;
+            label1.Text = "4000";
+        }
+
+        private void BtnApueSta5000_Click(object sender, EventArgs e)
+        {
+            Apuesta = 5;
+            label1.Text = "5000";
+        }
+        #endregion
     }
 }
 

@@ -39,6 +39,16 @@
             this.BtnPararHilo3 = new System.Windows.Forms.Button();
             this.BtnPararHilo4 = new System.Windows.Forms.Button();
             this.BtnPararHilo5 = new System.Windows.Forms.Button();
+            this.BtnInsertar = new System.Windows.Forms.Button();
+            this.BtnApuesta1000 = new System.Windows.Forms.Button();
+            this.BtnApuesta2000 = new System.Windows.Forms.Button();
+            this.BtnApuesta3000 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnApuesta4000 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BtnApueSta5000 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panel1
@@ -180,12 +190,173 @@
             this.BtnPararHilo5.UseVisualStyleBackColor = false;
             this.BtnPararHilo5.Click += new System.EventHandler(this.BtnPararHilo5_Click);
             // 
+            // BtnInsertar
+            // 
+            this.BtnInsertar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnInsertar.FlatAppearance.BorderSize = 0;
+            this.BtnInsertar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BtnInsertar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BtnInsertar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnInsertar.Location = new System.Drawing.Point(297, 833);
+            this.BtnInsertar.Name = "BtnInsertar";
+            this.BtnInsertar.Size = new System.Drawing.Size(121, 44);
+            this.BtnInsertar.TabIndex = 11;
+            this.BtnInsertar.UseVisualStyleBackColor = false;
+            this.BtnInsertar.Click += new System.EventHandler(this.BtnInsertar_Click);
+            // 
+            // BtnApuesta1000
+            // 
+            this.BtnApuesta1000.BackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta1000.FlatAppearance.BorderSize = 0;
+            this.BtnApuesta1000.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta1000.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta1000.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnApuesta1000.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnApuesta1000.ForeColor = System.Drawing.Color.White;
+            this.BtnApuesta1000.Location = new System.Drawing.Point(177, 924);
+            this.BtnApuesta1000.Name = "BtnApuesta1000";
+            this.BtnApuesta1000.Size = new System.Drawing.Size(54, 36);
+            this.BtnApuesta1000.TabIndex = 12;
+            this.BtnApuesta1000.Text = "1000";
+            this.BtnApuesta1000.UseVisualStyleBackColor = false;
+            this.BtnApuesta1000.Click += new System.EventHandler(this.BtnApuesta1000_Click);
+            // 
+            // BtnApuesta2000
+            // 
+            this.BtnApuesta2000.BackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta2000.FlatAppearance.BorderSize = 0;
+            this.BtnApuesta2000.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta2000.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta2000.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnApuesta2000.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnApuesta2000.ForeColor = System.Drawing.Color.Black;
+            this.BtnApuesta2000.Location = new System.Drawing.Point(335, 924);
+            this.BtnApuesta2000.Name = "BtnApuesta2000";
+            this.BtnApuesta2000.Size = new System.Drawing.Size(54, 36);
+            this.BtnApuesta2000.TabIndex = 12;
+            this.BtnApuesta2000.Text = "2000";
+            this.BtnApuesta2000.UseVisualStyleBackColor = false;
+            this.BtnApuesta2000.Click += new System.EventHandler(this.BtnApuesta2000_Click);
+            // 
+            // BtnApuesta3000
+            // 
+            this.BtnApuesta3000.BackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta3000.FlatAppearance.BorderSize = 0;
+            this.BtnApuesta3000.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta3000.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta3000.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnApuesta3000.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnApuesta3000.ForeColor = System.Drawing.Color.Black;
+            this.BtnApuesta3000.Location = new System.Drawing.Point(486, 924);
+            this.BtnApuesta3000.Name = "BtnApuesta3000";
+            this.BtnApuesta3000.Size = new System.Drawing.Size(54, 36);
+            this.BtnApuesta3000.TabIndex = 12;
+            this.BtnApuesta3000.Text = "3000";
+            this.BtnApuesta3000.UseVisualStyleBackColor = false;
+            this.BtnApuesta3000.Click += new System.EventHandler(this.BtnApuesta3000_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(622, 924);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(54, 36);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "3000";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // BtnApuesta4000
+            // 
+            this.BtnApuesta4000.BackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta4000.FlatAppearance.BorderSize = 0;
+            this.BtnApuesta4000.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta4000.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BtnApuesta4000.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnApuesta4000.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnApuesta4000.ForeColor = System.Drawing.Color.Black;
+            this.BtnApuesta4000.Location = new System.Drawing.Point(632, 924);
+            this.BtnApuesta4000.Name = "BtnApuesta4000";
+            this.BtnApuesta4000.Size = new System.Drawing.Size(54, 36);
+            this.BtnApuesta4000.TabIndex = 12;
+            this.BtnApuesta4000.Text = "4000";
+            this.BtnApuesta4000.UseVisualStyleBackColor = false;
+            this.BtnApuesta4000.Click += new System.EventHandler(this.BtnApuesta4000_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(464, 865);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 22);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "1000";
+            // 
+            // BtnApueSta5000
+            // 
+            this.BtnApueSta5000.BackColor = System.Drawing.Color.Transparent;
+            this.BtnApueSta5000.FlatAppearance.BorderSize = 0;
+            this.BtnApueSta5000.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BtnApueSta5000.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BtnApueSta5000.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnApueSta5000.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnApueSta5000.Location = new System.Drawing.Point(789, 925);
+            this.BtnApueSta5000.Name = "BtnApueSta5000";
+            this.BtnApueSta5000.Size = new System.Drawing.Size(59, 34);
+            this.BtnApueSta5000.TabIndex = 14;
+            this.BtnApueSta5000.Text = "5000";
+            this.BtnApueSta5000.UseVisualStyleBackColor = false;
+            this.BtnApueSta5000.Click += new System.EventHandler(this.BtnApueSta5000_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.label2.Location = new System.Drawing.Point(173, 852);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 22);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "10000";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.label3.Location = new System.Drawing.Point(800, 855);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(18, 22);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Casino_Hilos.Properties.Resources.CasinoImg;
             this.ClientSize = new System.Drawing.Size(1021, 992);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.BtnApueSta5000);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.BtnApuesta2000);
+            this.Controls.Add(this.BtnApuesta4000);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnApuesta3000);
+            this.Controls.Add(this.BtnApuesta1000);
+            this.Controls.Add(this.BtnInsertar);
             this.Controls.Add(this.BtnPararHilo5);
             this.Controls.Add(this.BtnPararHilo4);
             this.Controls.Add(this.BtnPararHilo3);
@@ -201,6 +372,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Slot Machine";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -218,6 +390,16 @@
         private System.Windows.Forms.Button BtnPararHilo3;
         private System.Windows.Forms.Button BtnPararHilo4;
         private System.Windows.Forms.Button BtnPararHilo5;
+        private System.Windows.Forms.Button BtnInsertar;
+        private System.Windows.Forms.Button BtnApuesta1000;
+        private System.Windows.Forms.Button BtnApuesta2000;
+        private System.Windows.Forms.Button BtnApuesta3000;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnApuesta4000;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BtnApueSta5000;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
