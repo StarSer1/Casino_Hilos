@@ -47,6 +47,9 @@ namespace Casino_Hilos
             InicializarCuadrosImagen();
             InicializarImagenes(); // Llama al método para inicializar las imágenes en los paneles
             this.FormClosing += Form1_FormClosing; // Suscribirse al evento FormClosing
+            this.Text = String.Empty;
+            this.ControlBox = false;
+            this.DoubleBuffered = true;
         }
 
         private void InicializarPaneles()
@@ -329,8 +332,7 @@ namespace Casino_Hilos
                     SaldoDeCuenta = DineroInicial;
                 }
             }
-
-            int[] datas = { 2, 2, 2, 2, 2 }; //Arreglo de prueba
+            int[] datas = { 2, 2, 2, 3, 1 }; //Arreglo de prueba
             int Dinero = Calcular_Premio(datas, Apuesta);
             SaldoDeCuenta = SaldoDeCuenta + Dinero;
             label2.Text = SaldoDeCuenta.ToString();
@@ -411,6 +413,17 @@ namespace Casino_Hilos
         {
             Apuesta = 5;
             label1.Text = "5000";
+        }       
+
+        private void BtnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void BtnMenu_Click(object sender, EventArgs e)
+        {
+            Menu menu = new Menu();
+            menu.Show();
         }
         #endregion
     }

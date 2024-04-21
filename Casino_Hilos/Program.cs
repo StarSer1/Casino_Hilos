@@ -16,7 +16,13 @@ namespace Casino_Hilos
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            // Crea una instancia del formulario del menú
+            Menu menuForm = new Menu();
+
+            // Muestra el formulario del menú
+            Application.Run(menuForm);
+
         }
     }
 }

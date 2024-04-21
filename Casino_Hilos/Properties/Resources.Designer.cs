@@ -93,6 +93,16 @@ namespace Casino_Hilos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gran_Jackpot_Real_3 {
+            get {
+                object obj = ResourceManager.GetObject("Gran_Jackpot_Real_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Lima {
             get {
                 object obj = ResourceManager.GetObject("Lima", resourceCulture);
@@ -113,6 +123,16 @@ namespace Casino_Hilos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Menu_Principal {
+            get {
+                object obj = ResourceManager.GetObject("Menu Principal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Naranja {
             get {
                 object obj = ResourceManager.GetObject("Naranja", resourceCulture);
@@ -126,6 +146,16 @@ namespace Casino_Hilos.Properties {
         internal static System.Drawing.Bitmap Sandia {
             get {
                 object obj = ResourceManager.GetObject("Sandia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tabla_de_precios {
+            get {
+                object obj = ResourceManager.GetObject("Tabla de precios", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
