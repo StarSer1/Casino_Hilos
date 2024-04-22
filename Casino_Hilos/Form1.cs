@@ -36,11 +36,13 @@ namespace Casino_Hilos
         private DateTime tiempoInicio; // Hora de inicio de la animación
         private DateTime ultimoClick = DateTime.MinValue;
 
-        private int[] data; //LLENAR ESTE ARREGLO CON LOS VALORES DE LAS IMAGENES (DEL 1 AL 6)
+        private int[] data = new int[5]; //LLENAR ESTE ARREGLO CON LOS VALORES DE LAS IMAGENES (DEL 1 AL 6)
         private int[][] posicionesIniciales;
-
-
-
+        private int contador;
+        private int valorS;
+        private int valorA;
+        private int Dinero;
+        private bool primeravuelta = true;
         public Form1()
         {
             InitializeComponent();
@@ -220,40 +222,167 @@ namespace Casino_Hilos
         {
             int numeroAleatorio = aleatorio.Next(1, 7);
             Image imagen = null;
-
-            switch (numeroAleatorio)
+            contador++;
+            if(primeravuelta == true)
             {
-                case 1:
-                    imagen = Properties.Resources.Limones;
-                    break;
-                case 2:
-                    imagen = Properties.Resources.Naranja;
-                    break;
-                case 3:
-                    imagen = Properties.Resources.Sandia;
-                    break;
-                case 4:
-                    imagen = Properties.Resources.Cereza_Grande;
-                    break;
-                case 5:
-                    imagen = Properties.Resources.Cereza;
-                    break;
-                case 6:
-                    imagen = Properties.Resources.Lima;
-                    break;
-                default:
-                    break;
-            }
+                switch (numeroAleatorio)
+                {
+                    case 1:
+                        imagen = Properties.Resources.Naranja;
+                        if (contador == 66 || contador == 67 || contador == 68 || contador == 69 || contador == 70)
+                        {
+                            valorS = 1;
+                            data[valorA] = valorS;
+                            valorA++;
 
+                        }
+                        break;
+                    case 2:
+                        imagen = Properties.Resources.Limones;
+                        if (contador == 66 || contador == 67 || contador == 68 || contador == 69 || contador == 70)
+                        {
+                            valorS = 2;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 3:
+                        imagen = Properties.Resources.Lima;
+                        if (contador == 66 || contador == 67 || contador == 68 || contador == 69 || contador == 70)
+                        {
+                            valorS = 3;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 4:
+                        imagen = Properties.Resources.Sandia;
+                        if (contador == 66 || contador == 67 || contador == 68 || contador == 69 || contador == 70)
+                        {
+                            valorS = 4;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 5:
+                        imagen = Properties.Resources.Cereza_Grande;
+                        if (contador == 66 || contador == 67 || contador == 68 || contador == 69 || contador == 70)
+                        {
+                            valorS = 5;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 6:
+                        imagen = Properties.Resources.Cereza;
+                        if (contador == 66 || contador == 67 || contador == 68 || contador == 69 || contador == 70)
+                        {
+                            valorS = 6;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if ( contador == 75)
+                {
+                    Dinero = Calcular_Premio(data, Apuesta);
+                    SaldoDeCuenta = SaldoDeCuenta + Dinero;
+                    label2.Text = SaldoDeCuenta.ToString();
+                    label3.Text = Dinero.ToString();
+                    ApuestaValida = false;
+                    contador = 0;
+                    primeravuelta = false;
+                    valorA = 0;
+                }
+                
+
+            }
+            else if (primeravuelta == false)
+            {
+                switch (numeroAleatorio)
+                {
+                    case 1:
+                        imagen = Properties.Resources.Naranja;
+                        if (contador == 51 || contador == 52 || contador == 53 || contador == 54 || contador == 55)
+                        {
+                            valorS = 1;
+                            data[valorA] = valorS;
+                            valorA++;
+
+                        }
+                        break;
+                    case 2:
+                        imagen = Properties.Resources.Limones;
+                        if (contador == 51 || contador == 52 || contador == 53 || contador == 54 || contador == 55)
+                        {
+                            valorS = 2;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 3:
+                        imagen = Properties.Resources.Lima;
+                        if (contador == 51 || contador == 52 || contador == 53 || contador == 54 || contador == 55)
+                        {
+                            valorS = 3;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 4:
+                        imagen = Properties.Resources.Sandia;
+                        if (contador == 51 || contador == 52 || contador == 53 || contador == 54 || contador == 55)
+                        {
+                            valorS = 4;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 5:
+                        imagen = Properties.Resources.Cereza_Grande;
+                        if (contador == 51 || contador == 52 || contador == 53 || contador == 54 || contador == 55)
+                        {
+                            valorS = 5;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    case 6:
+                        imagen = Properties.Resources.Cereza;
+                        if (contador == 51 || contador == 52 || contador == 53 || contador == 54 || contador == 55)
+                        {
+                            valorS = 6;
+                            data[valorA] = valorS;
+                            valorA++;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                if (contador == 60)
+                {
+                    Dinero = Calcular_Premio(data, Apuesta);
+                    SaldoDeCuenta = SaldoDeCuenta + Dinero;
+                    label2.Text = SaldoDeCuenta.ToString();
+                    label3.Text = Dinero.ToString();
+                    ApuestaValida = false;
+                    contador = 0;
+                    primeravuelta = false;
+                    valorA = 0;
+                }
+            }
+            
+            
             return imagen;
         }
-
         private int Calcular_Premio(int[] valores, int Apuesta)
         {
             int Total = 0;
             int Opcion = 1;
             bool Aprovado = false;
-            bool Finalizado = true;
             for (int h = 0; h < 6; h++)
             {
                 for (int i = 0; i < valores.Length; i++)
@@ -272,29 +401,19 @@ namespace Casino_Hilos
                     break;
                 }
                 Opcion++;
-                Finalizado = Aprovado;
             }
             if (Aprovado == false)
             {
-                Opcion = 1;
-                for (int h = 0; h < 6; h++)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        if (valores[i] == valores[i + 1] && valores[i] == valores[i + 2])
-                        {
-                            Aprovado = true;
-                            break;
-                        }
-                        Aprovado = false;
-                    }
-                    Opcion++;
-                    if (Aprovado)
-                    {
-                        Total = (Opcion * 1000) * Apuesta;
-                        break;
-                    }
+                Array.Sort(valores);
 
+                // Recorremos el arreglo para encontrar números repetidos
+                for (int i = 0; i < valores.Length - 2; i++)
+                {
+                    // Si encontramos un número que se repite exactamente 3 veces
+                    if (valores[i] == valores[i + 1] && valores[i] == valores[i + 2])
+                    {
+                        Total = (valores[i] * 1000) * Apuesta;
+                    }
                 }
             }
 
@@ -388,12 +507,6 @@ namespace Casino_Hilos
                 }
 
             }
-            int[] datas = { 2, 2, 5, 3, 1 }; //Arreglo de prueba
-            int Dinero = Calcular_Premio(datas, Apuesta);
-            SaldoDeCuenta = SaldoDeCuenta + Dinero;
-            label2.Text = SaldoDeCuenta.ToString();
-            label3.Text = Dinero.ToString();
-            ApuestaValida = false;
         }
 
         private void DetenerHilo(int N)
