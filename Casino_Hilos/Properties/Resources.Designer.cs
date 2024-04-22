@@ -91,6 +91,15 @@ namespace Casino_Hilos.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Efecto_de_Dinero {
+            get {
+                return ResourceManager.GetStream("Efecto_de_Dinero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Gran_Jackpot_Real_3 {

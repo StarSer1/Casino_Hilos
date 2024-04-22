@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -51,6 +52,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.BtnSalir = new System.Windows.Forms.Button();
             this.BtnMenu = new System.Windows.Forms.Button();
+            this.panelMover = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // panel1
@@ -371,11 +373,22 @@
             this.BtnMenu.UseVisualStyleBackColor = false;
             this.BtnMenu.Click += new System.EventHandler(this.BtnMenu_Click);
             // 
+            // panelMover
+            // 
+            this.panelMover.BackColor = System.Drawing.Color.Transparent;
+            this.panelMover.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMover.Location = new System.Drawing.Point(0, 0);
+            this.panelMover.Name = "panelMover";
+            this.panelMover.Size = new System.Drawing.Size(1021, 32);
+            this.panelMover.TabIndex = 19;
+            this.panelMover.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMover_Paint);
+            this.panelMover.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMover_MouseDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Casino_Hilos.Properties.Resources.Gran_Jackpot_Real_3;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1021, 992);
             this.ControlBox = false;
             this.Controls.Add(this.BtnMenu);
@@ -401,10 +414,12 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelMover);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Slot Machine";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -436,6 +451,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button BtnSalir;
         private System.Windows.Forms.Button BtnMenu;
+        private System.Windows.Forms.Panel panelMover;
     }
 }
 

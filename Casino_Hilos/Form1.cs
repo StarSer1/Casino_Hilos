@@ -9,6 +9,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
+using System.Runtime.InteropServices;
+
 
 
 namespace Casino_Hilos
@@ -20,52 +23,66 @@ namespace Casino_Hilos
         private Thread[] hilos;
         private ManualResetEvent[] handleCreatedEvents;
         private Random aleatorio;
+
         private int anchoPictureBox = 100;
         private int altoPictureBox = 100;
-        private int espaciado = 20; // Espacio entre PictureBox
-        private int numFilas = 3; // Número de filas
-        private int numColumnas = 1; // Número de columnas
-        private int numPaneles = 5; // Número de paneles
+        private int espaciado = 20; 
+        private int numFilas = 3; 
+        private int numColumnas = 1; 
+        private int numPaneles = 5; 
         private int tiempoInactivo = 5000;
         private int Apuesta = 1;
         private int SaldoDeCuenta = 10000;
-        private bool detenerAnimacion = true; // Bandera para detener la animación
-        private bool animacionIniciada = false; // Bandera para verificar si la animación ya ha comenzado
+        private bool detenerAnimacion = true; 
+        private bool animacionIniciada = false; 
         private bool botonDisponible = true;
         private bool ApuestaValida = false;
-        private DateTime tiempoInicio; // Hora de inicio de la animación
+        private DateTime tiempoInicio; 
         private DateTime ultimoClick = DateTime.MinValue;
 
-        private int[] data = new int[5]; //LLENAR ESTE ARREGLO CON LOS VALORES DE LAS IMAGENES (DEL 1 AL 6)
+        private int[] data = new int[5]; 
         private int[][] posicionesIniciales;
         private int contador;
         private int valorS;
         private int valorA;
         private int Dinero;
         private bool primeravuelta = true;
-        private SoundPlayer playerButtonSound;
 
         public Form1()
         {
             InitializeComponent();
-            aleatorio = new Random(); // Inicializar la variable aleatorio
-            hilos = new Thread[numPaneles]; // Inicializar la variable hilos
+            aleatorio = new Random();
+            hilos = new Thread[numPaneles];
             InicializarPaneles();
             InicializarCuadrosImagen();
-            InicializarImagenes(); // Llama al método para inicializar las imágenes en los paneles
-            this.FormClosing += Form1_FormClosing; // Suscribirse al evento FormClosing
+            InicializarImagenes(); 
+
+
+            this.FormClosing += Form1_FormClosing; 
             this.Text = String.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
-            playerButtonSound = new SoundPlayer();
-            playerButtonSound.SoundLocation = "C:\\Users\\user\\Desktop\\Programas 2\\Casino_Hilos\\Casino_Hilos\\Resources\\Efecto de Dinero.wav"; // Ruta del archivo de sonido del botón
+          
         }
+
+        private void ReproducirAudio()
+        {
+            try
+            {
+                SoundPlayer player = new SoundPlayer(Properties.Resources.Efecto_de_Dinero);
+
+                player.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al reproducir el archivo de audio: " + ex.Message);
+            }
+        }
+
         private void AlinearImagenes(int panelIndex)
         {
-            // Ajustar el tamaño de las imágenes
             AjustarTamañoImagenes();
 
-            // Alinear las imágenes en el panel dado a sus posiciones iniciales
             for (int i = 0; i < numFilas; i++)
             {
                 cuadrosImagen[panelIndex][0, i].Top = posicionesIniciales[panelIndex][i];
@@ -95,8 +112,8 @@ namespace Casino_Hilos
 
             for (int k = 0; k < numPaneles; k++)
             {
-                cuadrosImagen[k] = new PictureBox[numColumnas, numFilas]; // 1 columna y 3 filas
-                posicionesIniciales[k] = new int[numFilas]; // Inicializar las posiciones iniciales
+                cuadrosImagen[k] = new PictureBox[numColumnas, numFilas]; 
+                posicionesIniciales[k] = new int[numFilas]; 
 
                 for (int i = 0; i < numColumnas; i++)
                 {
@@ -104,7 +121,7 @@ namespace Casino_Hilos
                     {
                         cuadrosImagen[k][i, j] = new PictureBox();
                         cuadrosImagen[k][i, j].Size = new Size(anchoPictureBox, altoPictureBox);
-                        posicionesIniciales[k][j] = 0 + j * (altoPictureBox + espaciado); // Asignar las posiciones iniciales
+                        posicionesIniciales[k][j] = 0 + j * (altoPictureBox + espaciado); 
                         cuadrosImagen[k][i, j].Location = new Point(0, posicionesIniciales[k][j]);
                         cuadrosImagen[k][i, j].SizeMode = PictureBoxSizeMode.StretchImage;
                         paneles[k].Controls.Add(cuadrosImagen[k][i, j]);
@@ -116,7 +133,7 @@ namespace Casino_Hilos
 
         private void InicializarImagenes()
         {
-            // Inicializa las imágenes con una imagen aleatoria en cada panel
+            
             for (int k = 0; k < numPaneles; k++)
             {
                 for (int i = 0; i < numColumnas; i++)
@@ -150,7 +167,7 @@ namespace Casino_Hilos
                 int index = k;
                 hilos[k] = new Thread(() =>
                 {
-                    handleCreatedEvents[index].WaitOne(); // Esperar hasta que el panel esté completamente inicializado
+                    handleCreatedEvents[index].WaitOne(); 
                     AnimarColumna(index);
                 });
                 hilos[k].Start();
@@ -159,7 +176,6 @@ namespace Casino_Hilos
 
         private void AnimarColumna(int panelIndex)
         {
-            // Guardar la posición inicial de cada imagen
             int[] posicionesIniciales = new int[numFilas];
             for (int i = 0; i < numFilas; i++)
             {
@@ -168,7 +184,7 @@ namespace Casino_Hilos
 
             bool animacionCompleta = false;
 
-            while (!animacionCompleta) // Se ejecuta hasta que la animación esté completa
+            while (!animacionCompleta) 
             {
                 if (animacionIniciada)
                 {
@@ -179,27 +195,26 @@ namespace Casino_Hilos
                     }
                 }
 
-                bool allAligned = true; // Variable para controlar si todas las imágenes están alineadas
+                bool allAligned = true; 
 
                 for (int i = 0; i < numFilas; i++)
                 {
                     if (!IsHandleCreated)
-                        return; // Salir si el formulario ya no está creado
+                        return; 
 
                     paneles[panelIndex].Invoke(new Action(() =>
                     {
                         if (!IsDisposed)
                         {
-                            cuadrosImagen[panelIndex][0, i].Top += 20; // Mover las imágenes más rápido
+                            cuadrosImagen[panelIndex][0, i].Top += 20;
 
-                            // Si la imagen ha alcanzado la parte inferior, vuelve a la parte superior y cambia la imagen
+                
                             if (cuadrosImagen[panelIndex][0, i].Top >= paneles[panelIndex].Height)
                             {
                                 cuadrosImagen[panelIndex][0, i].Top = cuadrosImagen[panelIndex][0, i].Top - (altoPictureBox + espaciado) * numFilas;
                                 cuadrosImagen[panelIndex][0, i].Image = ObtenerImagenAleatoria();
                             }
 
-                            // Verificar si la imagen ha vuelto a su posición inicial
                             if (cuadrosImagen[panelIndex][0, i].Top != posicionesIniciales[i])
                             {
                                 allAligned = false;
@@ -210,13 +225,13 @@ namespace Casino_Hilos
 
                 if (detenerAnimacion && allAligned)
                 {
-                    animacionCompleta = true; // La animación está completa
+                    animacionCompleta = true; 
                 }
 
-                Thread.Sleep(50); // Espera 50 milisegundos antes de la siguiente iteración
+                Thread.Sleep(50);
             }
 
-            // Al finalizar la animación, ajustar el tamaño de las imágenes
+ 
             AjustarTamañoImagenes();
         }
 
@@ -410,10 +425,8 @@ namespace Casino_Hilos
             {
                 Array.Sort(valores);
 
-                // Recorremos el arreglo para encontrar números repetidos
                 for (int i = 0; i < valores.Length - 2; i++)
                 {
-                    // Si encontramos un número que se repite exactamente 3 veces
                     if (valores[i] == valores[i + 1] && valores[i] == valores[i + 2])
                     {
                         Total = (valores[i] * 1000) * Apuesta;
@@ -425,7 +438,6 @@ namespace Casino_Hilos
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Detener todos los hilos cuando el formulario se esté cerrando
             foreach (var hilo in hilos)
             {
                 if (hilo != null)
@@ -437,7 +449,6 @@ namespace Casino_Hilos
         #region Botones
         private void btnPalanca_Click(object sender, EventArgs e)
         {
-            // Deshabilitar el botón mientras se ejecuta la animación
             btnPalanca.Enabled = false;
 
             int Apostado = int.Parse(label1.Text);
@@ -458,36 +469,31 @@ namespace Casino_Hilos
                 {
                     if (detenerAnimacion)
                     {
-                        detenerAnimacion = false; // Reiniciar la bandera para detener la animación
-                        animacionIniciada = true; // Indicar que la animación ha comenzado
-                        tiempoInicio = DateTime.Now; // Registrar el tiempo de inicio de la animación
-                        IniciarHilos(); // Iniciar la animación
+                        detenerAnimacion = false;
+                        animacionIniciada = true; 
+                        tiempoInicio = DateTime.Now; 
+                        IniciarHilos(); 
                     }
                     else
                     {
-                        detenerAnimacion = true; // Detener la animación
+                        detenerAnimacion = true; 
                         foreach (var hilo in hilos)
                         {
-                            hilo.Join(); // Esperar a que todos los hilos terminen
+                            hilo.Join();
                         }
-                        AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
+                        AjustarTamañoImagenes(); 
                     }
                     botonDisponible = false;
 
-                    // Obtener la hora actual
                     ultimoClick = DateTime.Now;
 
-                    // Reactivar el botón después de cierto tiempo
                     Task.Delay(tiempoInactivo).ContinueWith(_ =>
                     {
-                        // Verificar si ha pasado suficiente tiempo desde el último clic
                         if ((DateTime.Now - ultimoClick).TotalMilliseconds >= tiempoInactivo)
                         {
-                            // Reactivar el botón en el hilo de la interfaz de usuario
                             Invoke((Action)(() =>
                             {
                                 botonDisponible = true;
-                                // Habilitar el botón una vez que la animación haya terminado
                                 btnPalanca.Enabled = true;
                             }));
                         }
@@ -498,10 +504,8 @@ namespace Casino_Hilos
                 {
                     DialogResult resultado = MessageBox.Show("Su cuenta no tiene el saldo suficiente, ¿Desea volver al menu principal?", "Confirmación", MessageBoxButtons.YesNo);
 
-                    // Verificar qué botón fue presionado
                     if (resultado == DialogResult.Yes)
                     {
-                        // Si se presionó "Sí", crear una instancia del otro formulario y mostrarlo
                         Menu formularioOtro = new Menu();
                         formularioOtro.Show();
                     }
@@ -519,13 +523,11 @@ namespace Casino_Hilos
             {
                 hilos[N - 1].Abort();
 
-                // Esperar a que el hilo se detenga completamente
                 while (hilos[N - 1].IsAlive)
                 {
                     Thread.Sleep(100);
                 }
 
-                // Alinear las imágenes en el panel correspondiente
                 AlinearImagenes(panelIndex: N - 1);
             }
         }
@@ -558,7 +560,7 @@ namespace Casino_Hilos
         {
             if (SaldoDeCuenta > 0)
             {
-                playerButtonSound.Play();
+                ReproducirAudio();
             }
 
             else
@@ -604,6 +606,7 @@ namespace Casino_Hilos
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
+            this.Hide();
             Menu menu = new Menu();
             menu.Show();
         }
@@ -611,6 +614,30 @@ namespace Casino_Hilos
 
         private void Form1_Load(object sender, EventArgs e)
         {
+        }
+
+        private void Form1_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelMover_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+
+
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        private void panelMover_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

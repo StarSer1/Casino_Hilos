@@ -17,7 +17,6 @@ namespace Casino_Hilos
         {
             InitializeComponent();
 
-            //Quitar Borde Superior Form
             this.Text = String.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
@@ -35,14 +34,31 @@ namespace Casino_Hilos
 
         private void BtnInstrucciones_Click(object sender, EventArgs e)
         {
+            this.Hide();
             Manual manual = new Manual();
             manual.Show();
         }
 
         private void BtnJugar_Click(object sender, EventArgs e)
         {
+            this.Hide();
             Form1 form1 = new Form1();
             form1.Show();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelMover_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void panelMover_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

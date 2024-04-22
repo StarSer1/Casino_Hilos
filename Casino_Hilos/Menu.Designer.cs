@@ -31,6 +31,7 @@
             this.BtnJugar = new System.Windows.Forms.Button();
             this.BtnInstrucciones = new System.Windows.Forms.Button();
             this.BtnSalir = new System.Windows.Forms.Button();
+            this.panelMover = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // BtnJugar
@@ -75,6 +76,17 @@
             this.BtnSalir.UseVisualStyleBackColor = false;
             this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
             // 
+            // panelMover
+            // 
+            this.panelMover.BackColor = System.Drawing.Color.Transparent;
+            this.panelMover.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMover.Location = new System.Drawing.Point(0, 0);
+            this.panelMover.Name = "panelMover";
+            this.panelMover.Size = new System.Drawing.Size(1021, 51);
+            this.panelMover.TabIndex = 3;
+            this.panelMover.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMover_Paint);
+            this.panelMover.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMover_MouseDown);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -82,6 +94,7 @@
             this.BackgroundImage = global::Casino_Hilos.Properties.Resources.Menu_Principal;
             this.ClientSize = new System.Drawing.Size(1021, 992);
             this.ControlBox = false;
+            this.Controls.Add(this.panelMover);
             this.Controls.Add(this.BtnSalir);
             this.Controls.Add(this.BtnInstrucciones);
             this.Controls.Add(this.BtnJugar);
@@ -89,6 +102,7 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
+            this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
 
         }
@@ -98,5 +112,6 @@
         private System.Windows.Forms.Button BtnJugar;
         private System.Windows.Forms.Button BtnInstrucciones;
         private System.Windows.Forms.Button BtnSalir;
+        private System.Windows.Forms.Panel panelMover;
     }
 }

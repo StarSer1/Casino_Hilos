@@ -30,6 +30,7 @@
         {
             this.BtnMenu = new System.Windows.Forms.Button();
             this.BtnSalir = new System.Windows.Forms.Button();
+            this.panelMover = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // BtnMenu
@@ -60,6 +61,17 @@
             this.BtnSalir.UseVisualStyleBackColor = false;
             this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
             // 
+            // panelMover
+            // 
+            this.panelMover.BackColor = System.Drawing.Color.Transparent;
+            this.panelMover.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMover.Location = new System.Drawing.Point(0, 0);
+            this.panelMover.Name = "panelMover";
+            this.panelMover.Size = new System.Drawing.Size(1021, 55);
+            this.panelMover.TabIndex = 2;
+            this.panelMover.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMover_Paint);
+            this.panelMover.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMover_MouseDown);
+            // 
             // Manual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -69,10 +81,12 @@
             this.ControlBox = false;
             this.Controls.Add(this.BtnSalir);
             this.Controls.Add(this.BtnMenu);
+            this.Controls.Add(this.panelMover);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Manual";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manual";
+            this.Load += new System.EventHandler(this.Manual_Load);
             this.ResumeLayout(false);
 
         }
@@ -81,5 +95,6 @@
 
         private System.Windows.Forms.Button BtnMenu;
         private System.Windows.Forms.Button BtnSalir;
+        private System.Windows.Forms.Panel panelMover;
     }
 }
