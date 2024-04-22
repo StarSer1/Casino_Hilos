@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+
 
 namespace Casino_Hilos
 {
@@ -35,6 +37,7 @@ namespace Casino_Hilos
         private DateTime ultimoClick = DateTime.MinValue;
 
         private int[] data; //LLENAR ESTE ARREGLO CON LOS VALORES DE LAS IMAGENES (DEL 1 AL 6)
+        private int[][] posicionesIniciales;
 
 
 
@@ -51,7 +54,17 @@ namespace Casino_Hilos
             this.ControlBox = false;
             this.DoubleBuffered = true;
         }
+        private void AlinearImagenes(int panelIndex)
+        {
+            // Ajustar el tamaño de las imágenes
+            AjustarTamañoImagenes();
 
+            // Alinear las imágenes en el panel dado a sus posiciones iniciales
+            for (int i = 0; i < numFilas; i++)
+            {
+                cuadrosImagen[panelIndex][0, i].Top = posicionesIniciales[panelIndex][i];
+            }
+        }
         private void InicializarPaneles()
         {
             paneles = new Panel[numPaneles];
@@ -72,10 +85,12 @@ namespace Casino_Hilos
         private void InicializarCuadrosImagen()
         {
             cuadrosImagen = new PictureBox[numPaneles][,];
+            posicionesIniciales = new int[numPaneles][];
 
             for (int k = 0; k < numPaneles; k++)
             {
                 cuadrosImagen[k] = new PictureBox[numColumnas, numFilas]; // 1 columna y 3 filas
+                posicionesIniciales[k] = new int[numFilas]; // Inicializar las posiciones iniciales
 
                 for (int i = 0; i < numColumnas; i++)
                 {
@@ -83,13 +98,15 @@ namespace Casino_Hilos
                     {
                         cuadrosImagen[k][i, j] = new PictureBox();
                         cuadrosImagen[k][i, j].Size = new Size(anchoPictureBox, altoPictureBox);
-                        cuadrosImagen[k][i, j].Location = new Point(0, 0 + j * (altoPictureBox + espaciado));
+                        posicionesIniciales[k][j] = 0 + j * (altoPictureBox + espaciado); // Asignar las posiciones iniciales
+                        cuadrosImagen[k][i, j].Location = new Point(0, posicionesIniciales[k][j]);
                         cuadrosImagen[k][i, j].SizeMode = PictureBoxSizeMode.StretchImage;
                         paneles[k].Controls.Add(cuadrosImagen[k][i, j]);
                     }
                 }
             }
         }
+
 
         private void InicializarImagenes()
         {
@@ -136,7 +153,16 @@ namespace Casino_Hilos
 
         private void AnimarColumna(int panelIndex)
         {
-            while (true && !detenerAnimacion) // Verifica si se debe detener la animación
+            // Guardar la posición inicial de cada imagen
+            int[] posicionesIniciales = new int[numFilas];
+            for (int i = 0; i < numFilas; i++)
+            {
+                posicionesIniciales[i] = cuadrosImagen[panelIndex][0, i].Top;
+            }
+
+            bool animacionCompleta = false;
+
+            while (!animacionCompleta) // Se ejecuta hasta que la animación esté completa
             {
                 if (animacionIniciada)
                 {
@@ -144,9 +170,10 @@ namespace Casino_Hilos
                     if (tiempoTranscurrido.TotalMilliseconds >= 4200)
                     {
                         detenerAnimacion = true;
-                        break;
                     }
                 }
+
+                bool allAligned = true; // Variable para controlar si todas las imágenes están alineadas
 
                 for (int i = 0; i < numFilas; i++)
                 {
@@ -165,15 +192,29 @@ namespace Casino_Hilos
                                 cuadrosImagen[panelIndex][0, i].Top = cuadrosImagen[panelIndex][0, i].Top - (altoPictureBox + espaciado) * numFilas;
                                 cuadrosImagen[panelIndex][0, i].Image = ObtenerImagenAleatoria();
                             }
+
+                            // Verificar si la imagen ha vuelto a su posición inicial
+                            if (cuadrosImagen[panelIndex][0, i].Top != posicionesIniciales[i])
+                            {
+                                allAligned = false;
+                            }
                         }
                     }));
                 }
+
+                if (detenerAnimacion && allAligned)
+                {
+                    animacionCompleta = true; // La animación está completa
+                }
+
                 Thread.Sleep(50); // Espera 50 milisegundos antes de la siguiente iteración
             }
 
             // Al finalizar la animación, ajustar el tamaño de las imágenes
             AjustarTamañoImagenes();
         }
+
+
 
         private Image ObtenerImagenAleatoria()
         {
@@ -207,7 +248,7 @@ namespace Casino_Hilos
             return imagen;
         }
 
-        private int Calcular_Premio(int[] valores,int Apuesta)
+        private int Calcular_Premio(int[] valores, int Apuesta)
         {
             int Total = 0;
             int Opcion = 1;
@@ -224,7 +265,7 @@ namespace Casino_Hilos
                     }
                     Aprovado = true;
                 }
-                
+
                 if (Aprovado)
                 {
                     Total = (Opcion * 2000) * Apuesta;
@@ -253,10 +294,10 @@ namespace Casino_Hilos
                         Total = (Opcion * 1000) * Apuesta;
                         break;
                     }
-                    
+
                 }
             }
-            
+
             return Total;
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -280,7 +321,11 @@ namespace Casino_Hilos
             int Saldo = int.Parse(label2.Text);
             int DineroInicial = SaldoDeCuenta;
             SaldoDeCuenta = (Saldo - Apostado);
-            if (SaldoDeCuenta > 0)
+            if (SaldoDeCuenta < 0)
+            {
+                ApuestaValida = false;
+            }
+            else
             {
                 ApuestaValida = true;
             }
@@ -304,7 +349,6 @@ namespace Casino_Hilos
                         }
                         AjustarTamañoImagenes(); // Ajustar el tamaño de las imágenes
                     }
-
                     botonDisponible = false;
 
                     // Obtener la hora actual
@@ -325,14 +369,26 @@ namespace Casino_Hilos
                             }));
                         }
                     });
+
                 }
                 else
                 {
-                    MessageBox.Show("Su cuenta no tiene el saldo necesario");
+                    DialogResult resultado = MessageBox.Show("Su cuenta no tiene el saldo suficiente, ¿Desea volver al menu principal?", "Confirmación", MessageBoxButtons.YesNo);
+
+                    // Verificar qué botón fue presionado
+                    if (resultado == DialogResult.Yes)
+                    {
+                        // Si se presionó "Sí", crear una instancia del otro formulario y mostrarlo
+                        Menu formularioOtro = new Menu();
+                        formularioOtro.Show();
+                    }
                     SaldoDeCuenta = DineroInicial;
+                    botonDisponible = true;
+                    btnPalanca.Enabled = true;
                 }
+
             }
-            int[] datas = { 2, 2, 2, 3, 1 }; //Arreglo de prueba
+            int[] datas = { 2, 2, 5, 3, 1 }; //Arreglo de prueba
             int Dinero = Calcular_Premio(datas, Apuesta);
             SaldoDeCuenta = SaldoDeCuenta + Dinero;
             label2.Text = SaldoDeCuenta.ToString();
@@ -342,9 +398,18 @@ namespace Casino_Hilos
 
         private void DetenerHilo(int N)
         {
-            if (hilos.Length >= N && hilos[N-1] != null && hilos[N-1].IsAlive)
+            if (hilos.Length >= N && hilos[N - 1] != null && hilos[N - 1].IsAlive)
             {
-                hilos[N-1].Abort();
+                hilos[N - 1].Abort();
+
+                // Esperar a que el hilo se detenga completamente
+                while (hilos[N - 1].IsAlive)
+                {
+                    Thread.Sleep(100);
+                }
+
+                // Alinear las imágenes en el panel correspondiente
+                AlinearImagenes(panelIndex: N - 1);
             }
         }
         private void BtnPararHilo1_Click(object sender, EventArgs e)
@@ -374,11 +439,11 @@ namespace Casino_Hilos
 
         private void BtnInsertar_Click(object sender, EventArgs e)
         {
-            if(SaldoDeCuenta >= 0)
+            if (SaldoDeCuenta > 0)
             {
 
             }
-                
+
             else
             {
                 MessageBox.Show("La apuesta excede el saldo de su cuenta");
@@ -413,7 +478,7 @@ namespace Casino_Hilos
         {
             Apuesta = 5;
             label1.Text = "5000";
-        }       
+        }
 
         private void BtnSalir_Click(object sender, EventArgs e)
         {
@@ -426,6 +491,9 @@ namespace Casino_Hilos
             menu.Show();
         }
         #endregion
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
     }
 }
-

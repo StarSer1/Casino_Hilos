@@ -128,5 +128,9 @@
   <ItemGroup>
     <None Include="Resources\Tabla de precios.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Efecto de Dinero.wav" />
+    <Content Include="Resources\Musica-de-Fondo.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
