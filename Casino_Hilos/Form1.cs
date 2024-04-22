@@ -43,6 +43,8 @@ namespace Casino_Hilos
         private int valorA;
         private int Dinero;
         private bool primeravuelta = true;
+        private SoundPlayer playerButtonSound;
+
         public Form1()
         {
             InitializeComponent();
@@ -55,6 +57,8 @@ namespace Casino_Hilos
             this.Text = String.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
+            playerButtonSound = new SoundPlayer();
+            playerButtonSound.SoundLocation = "C:\\Users\\user\\Desktop\\Programas 2\\Casino_Hilos\\Casino_Hilos\\Resources\\Efecto de Dinero.wav"; // Ruta del archivo de sonido del botón
         }
         private void AlinearImagenes(int panelIndex)
         {
@@ -554,7 +558,7 @@ namespace Casino_Hilos
         {
             if (SaldoDeCuenta > 0)
             {
-
+                playerButtonSound.Play();
             }
 
             else
